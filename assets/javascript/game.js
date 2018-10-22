@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
   var ted = {
-    name: "Ted Mosby",
+    name: "Ted",
     health: 120,
     attack: 8,
     image: "assets/images/ted.jpg",
@@ -13,7 +13,7 @@ $(document).ready(function() {
   };
 
   var barney = {
-    name: "Barney Stinson",
+    name: "Barney",
     health: 100,
     attack: 14,
     image: "assets/images/barney.jpg",
@@ -25,7 +25,7 @@ $(document).ready(function() {
   };
 
   var marshall = {
-    name: "Marshall Eriksen",
+    name: "Marshall",
     health: 150,
     attack: 8,
     image: "assets/images/marshall.webp",
@@ -37,7 +37,7 @@ $(document).ready(function() {
   };
 
   var lily = {
-    name: "Lily Aldrin",
+    name: "Lily",
     health: 180,
     attack: 7,
     image: "assets/images/lily.jpg",
@@ -48,17 +48,22 @@ $(document).ready(function() {
     counterAttack: 25,
   };
 
-  var allSlappers = [ted, barney, marshall, lily];
-  var turnCounter = 0;
+
+  var turnCounter = 1;
+  var winCounter = 0;
+
 
 
 // This is to display all of the slappers for selection - damn this looks messy lol
 
-  var displayTed = $("#slapper_selection").append("<img src = '" + ted.image + "'" + ted.imgClass1 + " alt = 'slapper'> ");
-  var displayBarney = $("#slapper_selection").append("<img src = '" + barney.image + "'" + barney.imgClass1 + " alt = 'slapper'> ");
-  var displayMarshall = $("#slapper_selection").append("<img src = '" + marshall.image + "'" + marshall.imgClass1 + " alt = 'slapper'> ");
-  var displayLily = $("#slapper_selection").append("<img src = '" + lily.image + "'" + lily.imgClass1 + " alt = 'slapper'> ");
-  var beginDisplay = $("#action_display").append("<p> Choose a Slapper to Begin </p>");
+  $("#slapper_selection").append("<img src = '" + ted.image + "'" + ted.imgClass1 + " alt = 'slapper'> ");
+
+  $("#slapper_selection").append("<img src = '" + barney.image + "'" + barney.imgClass1 + " alt = 'slapper'> ");
+
+  $("#slapper_selection").append("<img src = '" + marshall.image + "'" + marshall.imgClass1 + " alt = 'slapper'> ");
+
+  $("#slapper_selection").append("<img src = '" + lily.image + "'" + lily.imgClass1 + " alt = 'slapper'> ");
+  $("#action_display").append("<p> Choose a Slapper to Begin </p>");
 
   //funciton to erase appended picture when needed
   function erase ($slapper) {
@@ -71,88 +76,150 @@ $(document).ready(function() {
   $("#ted1").click(function(){
     erase($("#barney1","#marshall1","#lily1","#ted1"))
     $("#selected_slapper").append("<img src = '" + ted.image + "'" + ted.imgClassStatic + " alt = 'slapper'> ");
+
     $("#enemy_slappers").append("<img src = '" + barney.image + "'" + barney.imgClass2 + " alt = 'slapper'> ");
+
     $("#enemy_slappers").append("<img src = '" + marshall.image + "'" + marshall.imgClass2 + " alt = 'slapper'> ");
+
     $("#enemy_slappers").append("<img src = '" + lily.image + "'" + lily.imgClass2 + " alt = 'slapper'> ");
+
     $("#slapper_selection").remove();
+
     $("#action_display").append("<p> You Chose Ted! Now click an enemy to slap them! </p>");
+
+    $("#data").data(ted);
+
   });
 
   $("#barney1").click(function(){
     erase($("#barney1","#marshall1","#lily1","#ted1"))
     $("#selected_slapper").append("<img src = '" + barney.image + "'" + barney.imgClassStatic + " alt = 'slapper'> ");
+
     $("#enemy_slappers").append("<img src = '" + ted.image + "'" + ted.imgClass2 + " alt = 'slapper'> ");
+
     $("#enemy_slappers").append("<img src = '" + marshall.image + "'" + marshall.imgClass2 + " alt = 'slapper'> ");
+
     $("#enemy_slappers").append("<img src = '" + lily.image + "'" + lily.imgClass2 + " alt = 'slapper'> ");
     $("#slapper_selection").remove();
+
     $("#action_display").append("<p> You Chose Barney! Now click an enemy to slap them! </p>");
+
+    $("#data").data(barney);
+
   });
 
   $("#marshall1").click(function(){
-    erase($("#barney1","#marshall1","#lily1","#ted1"))
+    erase($("#barney1","#marshall1","#lily1","#ted1"));
+
     $("#selected_slapper").append("<img src = '" + marshall.image + "'" + marshall.imgClassStatic + " alt = 'slapper'> ");
+
     $("#enemy_slappers").append("<img src = '" + ted.image + "'" + ted.imgClass2 + " alt = 'slapper'> ");
+
     $("#enemy_slappers").append("<img src = '" + barney.image + "'" + barney.imgClass2 + " alt = 'slapper'> ");
+
     $("#enemy_slappers").append("<img src = '" + lily.image + "'" + lily.imgClass2 + " alt = 'slapper'> ");
+
     $("#slapper_selection").remove();
+
     $("#action_display").append("<p> You Chose Marshall! Now click an enemy to slap them! </p>");
+
+    $("#data").data(marshall);
   });
 
   $("#lily1").click(function(){
-    erase($("#barney1","#marshall1","#lily1","#ted1"))
+    erase($("#barney1","#marshall1","#lily1","#ted1"));
+
     $("#selected_slapper").append("<img src = '" + lily.image + "'" + lily.imgClassStatic + " alt = 'slapper'> ");
+
     $("#enemy_slappers").append("<img src = '" + ted.image + "'" + ted.imgClass2 + " alt = 'slapper'> ");
+
     $("#enemy_slappers").append("<img src = '" + barney.image + "'" + barney.imgClass2 + " alt = 'slapper'> ");
+
     $("#enemy_slappers").append("<img src = '" + marshall.image + "'" + marshall.imgClass2 + " alt = 'slapper'> ");
+
     $("#slapper_selection").remove();
+
     $("#action_display").append("<p> You Chose Lily! Now click an enemy to slap them! </p>");
 
+    $("#data").data(lily);
   });
 
   //click functions for moving enemy slappers to defenders
 
   $(document).on("click", "#ted2", function(){
     erase($("#ted2"));
-    // $("#ted2").remove();
+
     $("#enemy_defender").html("<img src = '" + ted.image + "'" + ted.imgClass3 + " alt = 'slapper'> ");
-    $("#action_display").append("<p> Your Enemy is Ted! Click Slap to hit him! </p>");
+
+    var chosenSlapper = $("#data").data();
+
+    $("#action_display").append("<p> Your Enemy is Ted! His health is " + ted.health + ". Your health is " + chosenSlapper.health + " click Slap to hit him! </p>");
   });
 
   $(document).on("click", "#barney2", function(){
     erase($("#barney2"));
+
     $("#enemy_defender").html("<img src = '" + barney.image + "'" + barney.imgClass3 + " alt = 'slapper'> ");
-    $("#action_display").append("<p> Your Enemy is Barney! Click Slap to hit him! </p>");
+
+    $("#action_display").append("<p> Your Enemy is Barney! His health is " + barney.health + ". Your health is " + chosenSlapper.health + " click Slap to hit him! </p>");
   });
 
   $(document).on("click", "#marshall2", function(){
     erase($("#marshall2"));
+
     $("#enemy_defender").html("<img src = '" + marshall.image + "'" + marshall.imgClass3 + " alt = 'slapper'> ");
-    $("#action_display").append("<p> Your Enemy is Marshall! Click Slap to hit him! </p>");
+
+    $("#action_display").append("<p> Your Enemy is Marshall! His health is " + marshall.health + ". Your health is " + chosenSlapper.health + " click Slap to hit him! </p>");
   });
 
   $(document).on("click", "#lily2", function(){
     erase($("#lily2"));
+
     $("#enemy_defender").html("<img src = '" + lily.image + "'" + lily.imgClass3 + " alt = 'slapper'> ");
-    $("#action_display").append("<p> Your Enemy is Lily! Click Slap to hit her! </p>");
+
+    $("#action_display").append("<p> Your Enemy is Lily! Her health is " + lily.health + ". Your health is " + chosenSlapper.health + " click Slap to hit her! </p>");
+
+  //stop selecting more slappers when one is Chosen
+  if ($('#ted3').length > 0) {
+
+
+};
+
+
+
+  // Game logic for slap button - currently not working
+
+
+
+  $(document).on("click", "#slap_button", function(){
+    if ($('#ted3').length > 0) {
+      turnCounter++;
+      var enemyHealth = ted.health;
+      var chosenSlapper = $("#data").data();
+      var yourHealth = chosenSlapper.health;
+      var yourAttack = chosenSlapper.attack;
+      var counterAttack = ted.counterAttack;
+
+
+      function slapping(yourAttack,counterAttack,enemyHealth,turnCounter,yourHealth) {
+        $("#action_display").append("<p> You attacked Ted and dealt" + yourAttack + " damage, but Ted hit you back for " + counterAttack + " damage. </p>");
+        enemyHealth = enemyHealth - yourAttack * turnCounter;
+        yourHealth = yourHealth - counterAttack;
+        $("#action_display").append("<p> Your health: " + yourHealth + "</p> <p> Enemy Health: " + enemyHealth + "<p>");
+      }
+
+      slapping(yourAttack,counterAttack,enemyHealth,turnCounter,yourHealth)
+}
+
   });
 
+});
 
 
-  // Game logic for slap button
 
 
 
-  if ($("#enemy_defender:has(img)")) {
-    $(document).on("click", "#slap_button", function(){
-        console.log("slappy slap slap");
-    })
-  } else {
-    $(document).on("click", "#slap_button", function(){
-      console.log("no slappy");
-    });
 
-
-  }
 
 
 
