@@ -2,7 +2,7 @@ $(document).ready(function() {
 
   var ted = {
     name: "Ted",
-    health: 120,
+    health: 30,
     attack: 8,
     image: "assets/images/ted.jpg",
     imgClass1: "class = 'slapper' id = 'ted1'",
@@ -14,7 +14,7 @@ $(document).ready(function() {
 
   var barney = {
     name: "Barney",
-    health: 100,
+    health: 30,
     attack: 14,
     image: "assets/images/barney.jpg",
     imgClass1: "class = 'slapper' id = 'barney1'",
@@ -26,7 +26,7 @@ $(document).ready(function() {
 
   var marshall = {
     name: "Marshall",
-    health: 150,
+    health: 30,
     attack: 8,
     image: "assets/images/marshall.webp",
     imgClass1: "class = 'slapper' id = 'marshall1'",
@@ -38,7 +38,7 @@ $(document).ready(function() {
 
   var lily = {
     name: "Lily",
-    health: 180,
+    health: 30,
     attack: 7,
     image: "assets/images/lily.jpg",
     imgClass1: "class = 'slapper' id = 'lily1'",
@@ -48,9 +48,6 @@ $(document).ready(function() {
     counterAttack: 25,
   };
 
-
-  var turnCounter = 1;
-  var winCounter = 0;
 
 
 
@@ -178,46 +175,162 @@ $(document).ready(function() {
     $("#enemy_defender").html("<img src = '" + lily.image + "'" + lily.imgClass3 + " alt = 'slapper'> ");
 
     $("#action_display").append("<p> Your Enemy is Lily! Her health is " + lily.health + ". Your health is " + chosenSlapper.health + " click Slap to hit her! </p>");
-
-  //stop selecting more slappers when one is Chosen
-  if ($('#ted3').length > 0) {
+    });
 
 
-};
+  // Game logic for slap button - currently buggy
 
 
+var chosenSlapper = $("#data").data();
+var turnCounter = 1;
+var winCounter = 0;
 
-  // Game logic for slap button - currently not working
-
-
-
-  $(document).on("click", "#slap_button", function(){
+//
+  $("#slap_button").click(function(){
+    console.log($('#ted3').length);
     if ($('#ted3').length > 0) {
       turnCounter++;
       var enemyHealth = ted.health;
-      var chosenSlapper = $("#data").data();
       var yourHealth = chosenSlapper.health;
       var yourAttack = chosenSlapper.attack;
       var counterAttack = ted.counterAttack;
 
 
-      function slapping(yourAttack,counterAttack,enemyHealth,turnCounter,yourHealth) {
-        $("#action_display").append("<p> You attacked Ted and dealt" + yourAttack + " damage, but Ted hit you back for " + counterAttack + " damage. </p>");
-        enemyHealth = enemyHealth - yourAttack * turnCounter;
-        yourHealth = yourHealth - counterAttack;
+
+      function slapping1() {
+        $("#action_display").append("<p> You attacked Ted and dealt " + yourAttack + " damage, but Ted hit you back for " + counterAttack + " damage. </p>");
+        yourAttack = parseInt(yourAttack) * parseInt(turnCounter);
+        enemyHealth = parseInt(enemyHealth) - parseInt(yourAttack);
+        yourHealth = parseInt(yourHealth) - parseInt(counterAttack);
         $("#action_display").append("<p> Your health: " + yourHealth + "</p> <p> Enemy Health: " + enemyHealth + "<p>");
+        if (enemyHealth <= 0) {
+          winCounter++;
+          erase($('#ted3'));
+          $("#action_display").append("<p> You Beat Ted, click another opponent!")
+        }
+        if (winCounter === 3) {
+               $("#myVideo").removeAttr("style")
+               $('#myVideo').get(0).play();
+
+               $("#action_display").append("<p> You Win!")
+
+        };
       }
 
-      slapping(yourAttack,counterAttack,enemyHealth,turnCounter,yourHealth)
+      slapping1();
+      console.log("this is wincounter " + winCounter);
 }
 
   });
 
-});
+  $("#slap_button").click(function(){
+    console.log($('#barney3').length);
+    if ($('#barney3').length > 0) {
+      turnCounter++;
+      var enemyHealth = barney.health;
+      var yourHealth = chosenSlapper.health;
+      var yourAttack = chosenSlapper.attack;
+      var counterAttack = barney.counterAttack;
 
 
+      function slapping2() {
+        $("#action_display").append("<p> You attacked Barney and dealt " + yourAttack + " damage, but Barney hit you back for " + counterAttack + " damage. </p>");
+        yourAttack = parseInt(yourAttack) * parseInt(turnCounter);
+        enemyHealth = parseInt(enemyHealth) - parseInt(yourAttack);
+        yourHealth = parseInt(yourHealth) - parseInt(counterAttack);
+        $("#action_display").append("<p> Your health: " + yourHealth + "</p> <p> Enemy Health: " + enemyHealth + "<p>");
+        if (enemyHealth <= 0) {
+          winCounter++;
+          erase($('#barney3'));
+          $("#action_display").append("<p> You Beat Barney, click another opponent!")
+        }
+        if (winCounter === 3) {
+               $("#myVideo").removeAttr("style")
+               $('#myVideo').get(0).play();
+
+               $("#action_display").append("<p> You Win!")
+
+        };
+      }
+
+      slapping2();
+      console.log("this is wincounter " + winCounter);
+}
+
+  });
+
+  $("#slap_button").click(function(){
+    console.log($('#marshall3').length);
+    if ($('#marshall3').length > 0) {
+      turnCounter++;
+      var enemyHealth = marshall.health;
+      var yourHealth = chosenSlapper.health;
+      var yourAttack = chosenSlapper.attack;
+      var counterAttack = marshall.counterAttack;
 
 
+      function slapping3() {
+        $("#action_display").append("<p> You attacked Marshall and dealt " + yourAttack + " damage, but Marshall hit you back for " + counterAttack + " damage. </p>");
+        yourAttack = parseInt(yourAttack) * parseInt(turnCounter);
+        enemyHealth = parseInt(enemyHealth) - parseInt(yourAttack);
+        yourHealth = parseInt(yourHealth) - parseInt(counterAttack);
+        $("#action_display").append("<p> Your health: " + yourHealth + "</p> <p> Enemy Health: " + enemyHealth + "<p>");
+        if (enemyHealth <= 0) {
+          winCounter++;
+          erase($('#marshall3'));
+          $("#action_display").append("<p> You Beat Marshall, click another opponent!")
+        }
+        if (winCounter === 3) {
+               $("#myVideo").removeAttr("style")
+               $('#myVideo').get(0).play();
+
+               $("#action_display").append("<p> You Win! </p>")
+
+        };
+      }
+
+      slapping3();
+      console.log("this is wincounter " + winCounter);
+}
+
+  });
+
+
+  $("#slap_button").click(function(){
+    console.log($('#lily3').length);
+    if ($('#lily3').length > 0) {
+      turnCounter++;
+      var enemyHealth = marshall.health;
+      var yourHealth = chosenSlapper.health;
+      var yourAttack = chosenSlapper.attack;
+      var counterAttack = marshall.counterAttack;
+
+
+      function slapping4() {
+        $("#action_display").append("<p> You attacked Lily and dealt " + yourAttack + " damage, but Lily hit you back for " + counterAttack + " damage. </p>");
+        yourAttack = parseInt(yourAttack) * parseInt(turnCounter);
+        enemyHealth = parseInt(enemyHealth) - parseInt(yourAttack);
+        yourHealth = parseInt(yourHealth) - parseInt(counterAttack);
+        $("#action_display").append("<p> Your health: " + yourHealth + "</p> <p> Enemy Health: " + enemyHealth + "<p>");
+        if (enemyHealth <= 0) {
+          winCounter++;
+          erase($('#lily3'));
+          $("#action_display").append("<p> You Beat Lily, click another opponent!")
+        }
+        if (winCounter === 3) {
+               $("#myVideo").removeAttr("style")
+               $('#myVideo').get(0).play();
+
+               $("#action_display").append("<p> You Win!")
+
+        };
+      }
+
+      slapping4();
+      console.log("this is wincounter " + winCounter);
+}
+
+  });
 
 
 
